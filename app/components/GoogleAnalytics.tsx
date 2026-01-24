@@ -1,0 +1,35 @@
+'use client'
+
+import { useEffect } from 'react'
+
+declare global {
+  interface Window {
+    dataLayer: any[]
+    gtag?: (...args: any[]) => void
+  }
+}
+
+export default function GoogleAnalytics() {
+  useEffect(() => {
+    // Google Analytics 4 Tracking Code
+    const script = document.createElement('script')
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'
+    script.async = true
+    document.head.appendChild(script)
+
+    // Configure GA4
+    window.dataLayer = window.dataLayer || []
+    function gtag(...args: any[]) {
+      window.dataLayer.push(args)
+    }
+    gtag('js', new Date())
+    gtag('config', 'G-XXXXXXXXXX')
+
+    return () => {
+      // Cleanup script if needed
+      document.head.removeChild(script)
+    }
+  }, [])
+
+  return null
+}

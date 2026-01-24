@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Converter to 4.0 Scale - Free & Accurate GPA Calculator</title>
+    <meta name="description" content="Convert your GPA from Chinese 100-point scale/5-point scale to 4.0 scale for study abroad. No ads, instant results.">
+    <meta name="keywords" content="GPA converter 4.0 scale, 中国GPA转4.0, 百分制转GPA">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E3F2FD',
+                        secondary: '#FFF3E0',
+                        text: '#333333',
+                        accent: '#FFB74D'
+                    },
+                },
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-b from-primary to-white min-h-screen">
+    <div class="container mx-auto px-4 py-12 max-w-3xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-text mb-2">GPA Converter</h1>
+            <p class="text-lg text-gray-600">Convert to 4.0 Scale - Free & Accurate</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="bg-white rounded-xl shadow-lg p-8">
+            <!-- Conversion Form -->
+            <form id="gpaForm" class="space-y-6">
+                <!-- Scale Selector -->
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <label for="scale" class="text-sm font-medium text-text w-full md:w-24">Scale:</label>
+                    <div class="flex-1 flex rounded-lg overflow-hidden border border-gray-300">
+                        <button type="button" id="percentScale" class="flex-1 py-3 px-4 bg-primary text-text font-medium hover:bg-blue-100 transition-colors">
+                            百分制
+                        </button>
+                        <button type="button" id="fiveScale" class="flex-1 py-3 px-4 bg-white text-text font-medium hover:bg-gray-100 transition-colors">
+                            5分制
+                        </button>
+                    </div>
+                </div>
+
+                <!-- GPA Input -->
+                <div class="flex flex-col gap-4">
+                    <label for="gpaInput" class="text-sm font-medium text-text">Your GPA:</label>
+                    <input 
+                        type="number" 
+                        id="gpaInput" 
+                        placeholder="Enter your GPA" 
+                        step="0.1" 
+                        min="0" 
+                        max="100" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-lg"
+                    >
+                    <p id="scaleInfo" class="text-sm text-gray-500">Example: 85 (for 100-point scale)</p>
+                </div>
+
+                <!-- Result Display -->
+                <div class="bg-secondary rounded-xl p-6">
+                    <h2 class="text-lg font-medium text-text mb-4">4.0 Scale Result:</h2>
+                    <div class="flex items-center justify-between">
+                        <div class="text-4xl font-bold text-text" id="result">0.0</div>
+                        <button 
+                            type="button" 
+                            id="copyBtn" 
+                            class="bg-accent hover:bg-orange-500 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                        >
+                            <i class="fas fa-copy"></i>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Conversion Rules -->
+            <div class="mt-8 p-4 bg-primary rounded-lg">
+                <h3 class="text-lg font-medium text-text mb-2">Conversion Rules:</h3>
+                <div id="rulesContent">
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                        <li>90-100 → 4.0</li>
+                        <li>85-89 → 3.7</li>
+                        <li>80-84 → 3.3</li>
+                        <li>75-79 → 3.0</li>
+                        <li>70-74 → 2.7</li>
+                        <li>65-69 → 2.3</li>
+                        <li>60-64 → 2.0</li>
+                        <li>0-59 → 0.0</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-sm text-gray-500">
+            <p>This tool provides reference only, not official academic certification.</p>
+            <div class="mt-4 flex justify-center gap-6">
+                <a href="#" class="hover:text-accent transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-accent transition-colors">Disclaimer</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // GPA conversion rules
+        const rules = {
+            cn_percent: [
+                { min: 90, max: 100, gpa: 4.0 },
+                { min: 85, max: 89, gpa: 3.7 },
+                { min: 80, max: 84, gpa: 3.3 },
+                { min: 75, max: 79, gpa: 3.0 },
+                { min: 70, max: 74, gpa: 2.7 },
+                { min: 65, max: 69, gpa: 2.3 },
+                { min: 60, max: 64, gpa: 2.0 },
+                { min: 0, max: 59, gpa: 0.0 }
+            ],
+            cn_5scale: [
+                { min: 4.8, max: 5.0, gpa: 4.0 },
+                { min: 4.5, max: 4.7, gpa: 3.7 },
+                { min: 4.0, max: 4.4, gpa: 3.3 },
+                { min: 3.5, max: 3.9, gpa: 3.0 },
+                { min: 3.0, max: 3.4, gpa: 2.7 },
+                { min: 2.5, max: 2.9, gpa: 2.3 },
+                { min: 2.0, max: 2.4, gpa: 2.0 },
+                { min: 0, max: 1.9, gpa: 0.0 }
+            ]
+        };
+
+        // State
+        let currentScale = 'cn_percent';
+
+        // DOM Elements
+        const percentScaleBtn = document.getElementById('percentScale');
+        const fiveScaleBtn = document.getElementById('fiveScale');
+        const gpaInput = document.getElementById('gpaInput');
+        const result = document.getElementById('result');
+        const copyBtn = document.getElementById('copyBtn');
+        const scaleInfo = document.getElementById('scaleInfo');
+        const rulesContent = document.getElementById('rulesContent');
+
+        // Scale Switching
+        percentScaleBtn.addEventListener('click', () => {
+            currentScale = 'cn_percent';
+            percentScaleBtn.classList.add('bg-primary', 'hover:bg-blue-100');
+            percentScaleBtn.classList.remove('bg-white', 'hover:bg-gray-100');
+            fiveScaleBtn.classList.add('bg-white', 'hover:bg-gray-100');
+            fiveScaleBtn.classList.remove('bg-primary', 'hover:bg-blue-100');
+            gpaInput.max = 100;
+            gpaInput.placeholder = 'Enter your GPA (0-100)';
+            scaleInfo.textContent = 'Example: 85 (for 100-point scale)';
+            updateRules();
+            calculateGPA();
+        });
+
+        fiveScaleBtn.addEventListener('click', () => {
+            currentScale = 'cn_5scale';
+            fiveScaleBtn.classList.add('bg-primary', 'hover:bg-blue-100');
+            fiveScaleBtn.classList.remove('bg-white', 'hover:bg-gray-100');
+            percentScaleBtn.classList.add('bg-white', 'hover:bg-gray-100');
+            percentScaleBtn.classList.remove('bg-primary', 'hover:bg-blue-100');
+            gpaInput.max = 5;
+            gpaInput.placeholder = 'Enter your GPA (0-5)';
+            scaleInfo.textContent = 'Example: 4.2 (for 5-point scale)';
+            updateRules();
+            calculateGPA();
+        });
+
+        // Update Conversion Rules Display
+        function updateRules() {
+            const scaleRules = rules[currentScale];
+            let rulesHtml = '';
+            
+            if (currentScale === 'cn_percent') {
+                rulesHtml = '<ul class="list-disc list-inside text-sm text-gray-600 space-y-1">';
+                scaleRules.forEach(rule => {
+                    rulesHtml += `<li>${rule.min}-${rule.max} → ${rule.gpa}</li>`;
+                });
+                rulesHtml += '</ul>';
+            } else {
+                rulesHtml = '<ul class="list-disc list-inside text-sm text-gray-600 space-y-1">';
+                scaleRules.forEach(rule => {
+                    rulesHtml += `<li>${rule.min}-${rule.max} → ${rule.gpa}</li>`;
+                });
+                rulesHtml += '</ul>';
+            }
+            
+            rulesContent.innerHTML = rulesHtml;
+        }
+
+        // Calculate GPA
+        function calculateGPA() {
+            const input = parseFloat(gpaInput.value);
+            if (isNaN(input)) {
+                result.textContent = '0.0';
+                return;
+            }
+
+            const scaleRules = rules[currentScale];
+            for (const rule of scaleRules) {
+                if (input >= rule.min && input <= rule.max) {
+                    result.textContent = rule.gpa.toFixed(1);
+                    return;
+                }
+            }
+            
+            result.textContent = '0.0';
+        }
+
+        // Copy Result to Clipboard
+        copyBtn.addEventListener('click', () => {
+            const resultText = result.textContent;
+            navigator.clipboard.writeText(resultText).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                copyBtn.classList.add('bg-green-500');
+                copyBtn.classList.remove('bg-accent', 'hover:bg-orange-500');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('bg-green-500');
+                    copyBtn.classList.add('bg-accent', 'hover:bg-orange-500');
+                }, 2000);
+            });
+        });
+
+        // Event Listeners
+        gpaInput.addEventListener('input', calculateGPA);
+    </script>
+</body>
+</html>
