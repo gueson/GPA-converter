@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'dSvyi8ugxh5gSyQK40vW2UI6EG_luAKTEf3793gGE6c'
+  },
+  alternates: {
+    canonical: 'https://gpa-converter.vercel.app'
   }
 }
 
