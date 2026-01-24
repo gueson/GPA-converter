@@ -13,7 +13,7 @@ export default function GoogleAnalytics() {
   useEffect(() => {
     // Google Analytics 4 Tracking Code
     const script = document.createElement('script')
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HDTW3TLZEJ'
     script.async = true
     document.head.appendChild(script)
 
@@ -23,7 +23,7 @@ export default function GoogleAnalytics() {
       window.dataLayer.push(args)
     }
     gtag('js', new Date())
-    gtag('config', 'G-XXXXXXXXXX')
+    gtag('config', 'G-HDTW3TLZEJ')
 
     return () => {
       // Cleanup script if needed
