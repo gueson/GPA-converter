@@ -134,11 +134,11 @@ The project is optimized for search engines with:
 
 ## Privacy Policy
 
-The GPA Converter tool does not collect any personal information from users. For more details, please refer to our [Privacy Policy](https://gpa-converter.vercel.app/privacy).
+The GPA Converter tool does not collect any personal information from users. For more details, please refer to our [Privacy Policy](https://gpaconverter.com/privacy).
 
 ## Disclaimer
 
-The GPA Converter tool is provided for informational purposes only and is not intended to be used as official academic certification. Different institutions may have their own conversion formulas. For more details, please refer to our [Disclaimer](https://gpa-converter.vercel.app/disclaimer).
+The GPA Converter tool is provided for informational purposes only and is not intended to be used as official academic certification. Different institutions may have their own conversion formulas. For more details, please refer to our [Disclaimer](https://gpaconverter.com/disclaimer).
 
 ## License
 
@@ -146,4 +146,4 @@ MIT License
 
 ## Contact
 
-For any questions or feedback, please contact us at support@gpacalculator.com
+For any questions or feedback, please contact us at gues1989on@gmail.com

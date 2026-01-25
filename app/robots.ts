@@ -3,6 +3,7 @@ import { MetadataRoute } from 'next'
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
+      /* AI Crawlers (commented out)
       {
         userAgent: 'GPTBot',
         disallow: ['/'],
@@ -35,6 +36,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'PerplexityBot',
         disallow: ['/'],
       },
+      */
       {
         userAgent: ['*'],
         allow: '/',
