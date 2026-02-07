@@ -26,8 +26,7 @@ export default function GoogleAnalytics() {
     gtag('config', 'G-HDTW3TLZEJ')
 
     return () => {
-      // Cleanup script if needed
-      document.head.removeChild(script)
+      // No cleanup needed for GA4 script
     }
   }, [])
 
