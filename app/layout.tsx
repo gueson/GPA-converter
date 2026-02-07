@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     google: 'dSvyi8ugxh5gSyQK40vW2UI6EG_luAKTEf3793gGE6c'
   },
   alternates: {
-    canonical: 'https://gpa-converter.vercel.app'
+    canonical: 'https://www.gpa-converter.online'
   },
   icons: {
     icon: '/favicon.svg',
