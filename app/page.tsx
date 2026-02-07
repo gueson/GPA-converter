@@ -53,7 +53,7 @@ export default function Home() {
   const [result, setResult] = useState<number>(0.0)
   const [copied, setCopied] = useState<boolean>(false)
   
-  const { register, watch } = useForm<FormInputs>({
+  const { register, watch, reset } = useForm<FormInputs>({
     defaultValues: {
       score: ''
     }
@@ -73,6 +73,7 @@ export default function Home() {
 
   const handleScaleChange = (newScale: GPAScale) => {
     setScale(newScale)
+    reset()
   }
 
   const handleCopyResult = async () => {
