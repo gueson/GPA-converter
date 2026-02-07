@@ -96,7 +96,7 @@ export default function PrivacyPolicy() {
                 If you have any questions or concerns about this Privacy Policy, please contact us at:
               </p>
               <p className="text-gray-700 leading-relaxed mt-2">
-                Email: support@gpacalculator.com
+                Email: support@gpa-converter.online
               </p>
             </section>
 
