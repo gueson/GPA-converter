@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     canonical: 'https://gpa-converter.vercel.app'
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.png'
+    icon: '/favicon.svg',
+    apple: '/favicon.svg'
   }
 }
 
