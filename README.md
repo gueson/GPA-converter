@@ -256,4 +256,4 @@ MIT License
 
 ## Contact
 
-For any questions or feedback, please contact us at gues1989on@gmail.com
+For any questions or feedback, please contact us at support@gpa-converter.online

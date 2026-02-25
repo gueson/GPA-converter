@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import SchemaOrg from './components/SchemaOrg'
 
 type GPAScale = 'cn_percent' | 'cn_5scale' | 'uk_7scale' | 'au_4scale' | 'letter_grade' | 'canada_4scale' | 'europe_ects' | 'japan_gpa' | 'korea_gpa' | 'india_gpa'
 
@@ -189,6 +190,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary to-white py-12">
+      <SchemaOrg />
       <div className="container mx-auto px-4 max-w-3xl">
         {/* Header */}
         <header className="text-center mb-12">
@@ -390,9 +392,14 @@ export default function Home() {
         {/* Footer */}
         <footer className="mt-12 text-center text-sm text-gray-500">
           <p>This tool provides reference only, not official academic certification.</p>
-          <div className="mt-4 flex justify-center gap-6">
+          <div className="mt-4 flex flex-col md:flex-row justify-center gap-4 md:gap-6">
             <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="/disclaimer" className="hover:text-accent transition-colors">Disclaimer</a>
+            <a href="mailto:support@gpa-converter.online" className="hover:text-accent transition-colors">Contact Us</a>
+          </div>
+          <div className="mt-6">
+            <p>© {new Date().getFullYear()} GPA Converter. All rights reserved.</p>
+            <p className="mt-2">Made with ❤️ for international students</p>
           </div>
         </footer>
       </div>

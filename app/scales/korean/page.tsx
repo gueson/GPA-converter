@@ -115,15 +115,54 @@ export default function KoreanGPAPage() {
                 <li>Use this converter as a general guide for your applications</li>
               </ul>
             </section>
+
+            {/* Other Conversion Tools */}
+            <section className="mt-8">
+              <h2 className="text-xl font-semibold text-text mb-4">Other GPA Conversion Tools</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <a href="/scales/cn_percent" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">Chinese 100-point</span>
+                </a>
+                <a href="/scales/cn_5scale" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">Chinese 5-point</span>
+                </a>
+                <a href="/scales/uk" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">UK 7-point</span>
+                </a>
+                <a href="/scales/australian" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">Australian 4-point</span>
+                </a>
+                <a href="/scales/canadian" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">Canadian 4-point</span>
+                </a>
+                <a href="/scales/european" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">European ECTS</span>
+                </a>
+                <a href="/scales/japanese" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">Japanese GPA</span>
+                </a>
+                <a href="/scales/indian" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">Indian GPA</span>
+                </a>
+                <a href="/scales/letter" className="p-3 bg-primary rounded-lg hover:bg-blue-100 transition-colors">
+                  <span className="font-medium">Letter Grade</span>
+                </a>
+              </div>
+            </section>
           </div>
         </main>
 
         {/* Footer */}
         <footer className="mt-12 text-center text-sm text-gray-500">
-          <div className="flex justify-center gap-6">
+          <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6">
             <a href="/" className="hover:text-accent transition-colors">Home</a>
             <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="/disclaimer" className="hover:text-accent transition-colors">Disclaimer</a>
+            <a href="mailto:support@gpa-converter.online" className="hover:text-accent transition-colors">Contact Us</a>
+          </div>
+          <div className="mt-6">
+            <p>© {new Date().getFullYear()} GPA Converter. All rights reserved.</p>
+            <p className="mt-2">Made with ❤️ for international students</p>
           </div>
         </footer>
       </div>
