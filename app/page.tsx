@@ -203,74 +203,74 @@ export default function Home() {
             {/* Scale Selector */}
             <div className="flex flex-col gap-3">
               <label className="text-sm font-medium text-text">Scale:</label>
-              <div className="flex rounded-lg overflow-hidden border border-gray-300 flex-wrap">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                 <button
                   type="button"
                   onClick={() => handleScaleChange('cn_percent')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'cn_percent' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'cn_percent' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   百分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('cn_5scale')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'cn_5scale' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'cn_5scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   5分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('uk_7scale')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'uk_7scale' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'uk_7scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   英国7分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('au_4scale')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'au_4scale' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'au_4scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   澳洲4分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('letter_grade')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'letter_grade' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'letter_grade' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   字母制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('canada_4scale')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'canada_4scale' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'canada_4scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   加拿大4分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('europe_ects')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'europe_ects' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'europe_ects' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   欧洲ECTS
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('japan_gpa')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'japan_gpa' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'japan_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   日本GPA
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('korea_gpa')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'korea_gpa' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'korea_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   韩国GPA
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('india_gpa')}
-                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'india_gpa' ? 'bg-primary' : 'bg-white'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'india_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
                 >
                   印度GPA
                 </button>
