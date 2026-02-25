@@ -71,27 +71,40 @@ export default function PrivacyPolicy() {
 
             <section>
               <h2 className="text-xl font-semibold text-[#333333] mb-4">5. Data Protection</h2>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed mb-4">
                 Since we do not collect any personal information, there is no risk of your personal data being compromised through our service. We take reasonable measures to protect the integrity and security of our website.
+              </p>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                <strong>GDPR Compliance:</strong> We comply with the General Data Protection Regulation (GDPR) for users in the European Union. Since we do not collect personal data, we do not require consent for data processing. However, if you have any concerns about data protection, please contact us.
+              </p>
+              <p className="text-gray-700 leading-relaxed">
+                <strong>CCPA Compliance:</strong> We comply with the California Consumer Privacy Act (CCPA) for users in California. You have the right to know what personal information we collect, delete personal information, and opt-out of the sale of personal information. Since we do not collect personal information, these rights are automatically respected.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-[#333333] mb-4">6. Third-Party Links</h2>
+              <h2 className="text-xl font-semibold text-[#333333] mb-4">6. Cookie Consent</h2>
+              <p className="text-gray-700 leading-relaxed">
+                Our website uses cookies for analytics and to enhance your user experience. By using our website, you consent to the use of cookies in accordance with this Privacy Policy. You can disable cookies through your browser settings if you prefer not to accept them.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-[#333333] mb-4">7. Third-Party Links</h2>
               <p className="text-gray-700 leading-relaxed">
                 Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these websites. We encourage you to review the privacy policies of any third-party websites you visit.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-[#333333] mb-4">7. Changes to This Privacy Policy</h2>
+              <h2 className="text-xl font-semibold text-[#333333] mb-4">8. Changes to This Privacy Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this Privacy Policy periodically for any changes.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-[#333333] mb-4">8. Contact Us</h2>
+              <h2 className="text-xl font-semibold text-[#333333] mb-4">9. Contact Us</h2>
               <p className="text-gray-700 leading-relaxed">
                 If you have any questions or concerns about this Privacy Policy, please contact us at:
               </p>
@@ -101,9 +114,9 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-[#333333] mb-4">9. Effective Date</h2>
+              <h2 className="text-xl font-semibold text-[#333333] mb-4">10. Effective Date</h2>
               <p className="text-gray-700 leading-relaxed">
-                This Privacy Policy is effective as of January 24, 2026.
+                This Privacy Policy is effective as of February 25, 2026.
               </p>
             </section>
           </div>

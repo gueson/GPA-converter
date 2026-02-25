@@ -43,7 +43,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/_next/'],
       },
     ],
-    sitemap: 'https://gpa-converter.online/sitemap.xml',
-    host: 'https://gpa-converter.online',
+    sitemap: 'https://www.gpa-converter.online/sitemap.xml',
+    host: 'https://www.gpa-converter.online',
   }
 }

@@ -5,11 +5,11 @@ import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
   title: 'GPA Converter to 4.0 Scale - Free & Accurate GPA Calculator',
-  description: 'Convert your GPA from Chinese 100-point scale/5-point scale to 4.0 scale for study abroad. No ads, instant results.',
-  keywords: 'GPA converter 4.0 scale, 中国GPA转4.0, 百分制转GPA',
+  description: 'Convert your GPA from 10 different scales (Chinese, UK, Australian, Letter Grade, Canadian, European, Japanese, Korean, Indian) to 4.0 scale for study abroad. No ads, instant results.',
+  keywords: 'GPA converter 4.0 scale, 中国GPA转4.0, 百分制转GPA, UK GPA to 4.0, Australian GPA converter, Letter grade to GPA',
   openGraph: {
     title: 'GPA Converter to 4.0 Scale',
-    description: 'Convert your GPA from Chinese 100-point scale/5-point scale to 4.0 scale for study abroad.',
+    description: 'Convert your GPA from 10 different scales to 4.0 scale for study abroad.',
     type: 'website',
   },
   verification: {

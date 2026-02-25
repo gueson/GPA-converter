@@ -93,7 +93,7 @@
 | 免责条款页 | Disclaimer - GPA Converter to 4.0 Scale                              | This tool provides reference only, not official academic certification.                        | GPA converter disclaimer      |
 
 #### 进阶SEO策略（MVP后迭代）
-1. 页面结构化数据：添加「工具类Schema」（https://schema.org/Tool），让谷歌搜索结果显示“换算工具”标签；
+1. 页面结构化数据：添加「工具类Schema」（https://schema.org/tool），让谷歌搜索结果显示“换算工具”标签；
 2. 长尾关键词落地页：新增“UK GPA to 4.0 scale”“Australia GPA converter”等长尾词页面，提升精准流量；
 3. 内容优化：添加「GPA换算规则说明」轻博客，覆盖“如何计算加权GPA”“不同院校GPA换算差异”等内容，提升收录量。
 

@@ -4,7 +4,7 @@ A free, accurate, and ad-free GPA converter tool that converts your GPA from Chi
 
 ## Features
 
-- **Multiple Scale Support**: Convert from Chinese 100-point scale and 5-point scale to 4.0 scale
+- **Multiple Scale Support**: Convert from 10 different GPA scales (Chinese 100-point, Chinese 5-point, UK 7-point, Australian 4-point, Letter Grade, Canadian 4-point, European ECTS, Japanese, Korean, and Indian) to 4.0 scale
 - **Real-time Results**: Get instant conversion results as you type
 - **Easy to Use**: Simple, intuitive interface with just 3 steps to convert your GPA
 - **Copy to Clipboard**: One-click to copy the conversion result
@@ -121,6 +121,116 @@ Follow the prompts to complete the deployment.
 | 2.5-2.9     | 2.3       |
 | 2.0-2.4     | 2.0       |
 | 0.0-1.9     | 0.0       |
+
+### UK 7-point Scale to 4.0 Scale
+
+| Score Range | 4.0 Scale |
+|-------------|-----------|
+| 7.0         | 4.0       |
+| 6.5-6.9     | 3.7       |
+| 6.0-6.4     | 3.3       |
+| 5.5-5.9     | 3.0       |
+| 5.0-5.4     | 2.7       |
+| 4.5-4.9     | 2.3       |
+| 4.0-4.4     | 2.0       |
+| 0.0-3.9     | 0.0       |
+
+### Australian 4-point Scale to 4.0 Scale
+
+| Score Range | 4.0 Scale |
+|-------------|-----------|
+| 4.0         | 4.0       |
+| 3.0-3.9     | 3.0       |
+| 2.0-2.9     | 2.0       |
+| 1.0-1.9     | 1.0       |
+| 0.0-0.9     | 0.0       |
+
+### Letter Grade to 4.0 Scale
+
+| Letter Grade | 4.0 Scale |
+|-------------|-----------|
+| A+, A       | 4.0       |
+| A-          | 3.7       |
+| B+          | 3.3       |
+| B           | 3.0       |
+| B-          | 2.7       |
+| C+          | 2.3       |
+| C           | 2.0       |
+| C-          | 1.7       |
+| D+          | 1.3       |
+| D           | 1.0       |
+| F           | 0.0       |
+
+### Canadian 4-point Scale to 4.0 Scale
+
+| Score Range | 4.0 Scale |
+|-------------|-----------|
+| 4.0         | 4.0       |
+| 3.7-3.9     | 3.7       |
+| 3.3-3.6     | 3.3       |
+| 3.0-3.2     | 3.0       |
+| 2.7-2.9     | 2.7       |
+| 2.3-2.6     | 2.3       |
+| 2.0-2.2     | 2.0       |
+| 1.7-1.9     | 1.7       |
+| 1.3-1.6     | 1.3       |
+| 1.0-1.2     | 1.0       |
+| 0.0-0.9     | 0.0       |
+
+### European ECTS Scale to 4.0 Scale
+
+| Score Range | 4.0 Scale |
+|-------------|-----------|
+| 30          | 4.0       |
+| 27-29       | 3.7       |
+| 24-26       | 3.3       |
+| 21-23       | 3.0       |
+| 18-20       | 2.7       |
+| 15-17       | 2.3       |
+| 12-14       | 2.0       |
+| 9-11        | 1.7       |
+| 6-8         | 1.3       |
+| 3-5         | 1.0       |
+| 0-2         | 0.0       |
+
+### Japanese GPA Scale to 4.0 Scale
+
+| Letter Grade | 4.0 Scale |
+|-------------|-----------|
+| S           | 4.0       |
+| A           | 3.5       |
+| B           | 3.0       |
+| C           | 2.0       |
+| D           | 1.0       |
+| F           | 0.0       |
+
+### Korean GPA Scale to 4.0 Scale
+
+| Score Range | 4.0 Scale |
+|-------------|-----------|
+| 4.5         | 4.0       |
+| 4.0-4.4     | 3.7       |
+| 3.5-3.9     | 3.3       |
+| 3.0-3.4     | 3.0       |
+| 2.5-2.9     | 2.7       |
+| 2.0-2.4     | 2.3       |
+| 1.5-1.9     | 2.0       |
+| 1.0-1.4     | 1.7       |
+| 0.5-0.9     | 1.3       |
+| 0.0-0.4     | 0.0       |
+
+### Indian GPA Scale to 4.0 Scale
+
+| Score Range | 4.0 Scale |
+|-------------|-----------|
+| 9.0-10.0    | 4.0       |
+| 8.0-8.9     | 3.7       |
+| 7.0-7.9     | 3.3       |
+| 6.0-6.9     | 3.0       |
+| 5.0-5.9     | 2.7       |
+| 4.0-4.9     | 2.3       |
+| 3.0-3.9     | 2.0       |
+| 0.0-2.9     | 0.0       |
 
 ## SEO Optimization
 
