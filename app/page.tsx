@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-type GPAScale = 'cn_percent' | 'cn_5scale' | 'uk_7scale' | 'au_4scale' | 'letter_grade'
+type GPAScale = 'cn_percent' | 'cn_5scale' | 'uk_7scale' | 'au_4scale' | 'letter_grade' | 'canada_4scale' | 'europe_ects' | 'japan_gpa' | 'korea_gpa' | 'india_gpa'
 
 type FormInputs = {
   score: string
@@ -15,7 +15,7 @@ interface ConversionRule {
   gpa: number
 }
 
-const conversionRules: Record<Exclude<GPAScale, 'letter_grade'>, ConversionRule[]> = {
+const conversionRules: Record<Exclude<GPAScale, 'letter_grade' | 'japan_gpa'>, ConversionRule[]> = {
   cn_percent: [
     { min: 90, max: 100, gpa: 4.0 },
     { min: 85, max: 89, gpa: 3.7 },
@@ -53,33 +53,93 @@ const conversionRules: Record<Exclude<GPAScale, 'letter_grade'>, ConversionRule[
     { min: 1.0, max: 1.9, gpa: 1.0 },
     { min: 0, max: 0.9, gpa: 0.0 },
   ],
+  canada_4scale: [
+    { min: 4.0, max: 4.0, gpa: 4.0 },
+    { min: 3.7, max: 3.9, gpa: 3.7 },
+    { min: 3.3, max: 3.6, gpa: 3.3 },
+    { min: 3.0, max: 3.2, gpa: 3.0 },
+    { min: 2.7, max: 2.9, gpa: 2.7 },
+    { min: 2.3, max: 2.6, gpa: 2.3 },
+    { min: 2.0, max: 2.2, gpa: 2.0 },
+    { min: 1.7, max: 1.9, gpa: 1.7 },
+    { min: 1.3, max: 1.6, gpa: 1.3 },
+    { min: 1.0, max: 1.2, gpa: 1.0 },
+    { min: 0, max: 0.9, gpa: 0.0 },
+  ],
+  europe_ects: [
+    { min: 30, max: 30, gpa: 4.0 },
+    { min: 27, max: 29, gpa: 3.7 },
+    { min: 24, max: 26, gpa: 3.3 },
+    { min: 21, max: 23, gpa: 3.0 },
+    { min: 18, max: 20, gpa: 2.7 },
+    { min: 15, max: 17, gpa: 2.3 },
+    { min: 12, max: 14, gpa: 2.0 },
+    { min: 9, max: 11, gpa: 1.7 },
+    { min: 6, max: 8, gpa: 1.3 },
+    { min: 3, max: 5, gpa: 1.0 },
+    { min: 0, max: 2, gpa: 0.0 },
+  ],
+  korea_gpa: [
+    { min: 4.5, max: 4.5, gpa: 4.0 },
+    { min: 4.0, max: 4.4, gpa: 3.7 },
+    { min: 3.5, max: 3.9, gpa: 3.3 },
+    { min: 3.0, max: 3.4, gpa: 3.0 },
+    { min: 2.5, max: 2.9, gpa: 2.7 },
+    { min: 2.0, max: 2.4, gpa: 2.3 },
+    { min: 1.5, max: 1.9, gpa: 2.0 },
+    { min: 1.0, max: 1.4, gpa: 1.7 },
+    { min: 0.5, max: 0.9, gpa: 1.3 },
+    { min: 0, max: 0.4, gpa: 0.0 },
+  ],
+  india_gpa: [
+    { min: 9, max: 10, gpa: 4.0 },
+    { min: 8, max: 8.9, gpa: 3.7 },
+    { min: 7, max: 7.9, gpa: 3.3 },
+    { min: 6, max: 6.9, gpa: 3.0 },
+    { min: 5, max: 5.9, gpa: 2.7 },
+    { min: 4, max: 4.9, gpa: 2.3 },
+    { min: 3, max: 3.9, gpa: 2.0 },
+    { min: 0, max: 2.9, gpa: 0.0 },
+  ],
 }
 
 function calculateGPA(score: number | string, scale: GPAScale): number {
-  if (scale === 'letter_grade') {
+  if (scale === 'letter_grade' || scale === 'japan_gpa') {
     // Handle letter grades
     const letterGrade = score as string
-    const letterToGPA: Record<string, number> = {
-      'A+': 4.0,
-      'A': 4.0,
-      'A-': 3.7,
-      'B+': 3.3,
-      'B': 3.0,
-      'B-': 2.7,
-      'C+': 2.3,
-      'C': 2.0,
-      'C-': 1.7,
-      'D+': 1.3,
-      'D': 1.0,
-      'F': 0.0
+    if (scale === 'japan_gpa') {
+      const letterToGPA: Record<string, number> = {
+        'S': 4.0,
+        'A': 3.5,
+        'B': 3.0,
+        'C': 2.0,
+        'D': 1.0,
+        'F': 0.0
+      }
+      return letterToGPA[letterGrade.toUpperCase()] || 0.0
+    } else {
+      const letterToGPA: Record<string, number> = {
+        'A+': 4.0,
+        'A': 4.0,
+        'A-': 3.7,
+        'B+': 3.3,
+        'B': 3.0,
+        'B-': 2.7,
+        'C+': 2.3,
+        'C': 2.0,
+        'C-': 1.7,
+        'D+': 1.3,
+        'D': 1.0,
+        'F': 0.0
+      }
+      return letterToGPA[letterGrade.toUpperCase()] || 0.0
     }
-    return letterToGPA[letterGrade.toUpperCase()] || 0.0
   } else {
     // Handle numerical scales
     const numericScore = typeof score === 'string' ? parseFloat(score) : score
     if (isNaN(numericScore)) return 0.0
     
-    const rules = conversionRules[scale as Exclude<GPAScale, 'letter_grade'>]
+    const rules = conversionRules[scale as Exclude<GPAScale, 'letter_grade' | 'japan_gpa'>]
     if (!rules) return 0.0
     
     for (const rule of rules) {
@@ -179,32 +239,67 @@ export default function Home() {
                 >
                   字母制
                 </button>
+                <button
+                  type="button"
+                  onClick={() => handleScaleChange('canada_4scale')}
+                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'canada_4scale' ? 'bg-primary' : 'bg-white'}`}
+                >
+                  加拿大4分制
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScaleChange('europe_ects')}
+                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'europe_ects' ? 'bg-primary' : 'bg-white'}`}
+                >
+                  欧洲ECTS
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScaleChange('japan_gpa')}
+                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'japan_gpa' ? 'bg-primary' : 'bg-white'}`}
+                >
+                  日本GPA
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScaleChange('korea_gpa')}
+                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'korea_gpa' ? 'bg-primary' : 'bg-white'}`}
+                >
+                  韩国GPA
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScaleChange('india_gpa')}
+                  className={`flex-1 py-3 px-4 font-medium transition-colors ${scale === 'india_gpa' ? 'bg-primary' : 'bg-white'}`}
+                >
+                  印度GPA
+                </button>
               </div>
             </div>
 
             {/* GPA Input */}
             <div className="flex flex-col gap-3">
               <label className="text-sm font-medium text-text">Your GPA:</label>
-              {scale === 'letter_grade' ? (
+              {(scale === 'letter_grade' || scale === 'japan_gpa') ? (
                 <input
                   type="text"
-                  placeholder="Enter your letter grade (e.g., A+, B, C-)"
+                  placeholder={scale === 'letter_grade' ? "Enter your letter grade (e.g., A+, B, C-)" : "Enter your letter grade (e.g., S, A, B)"}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-lg"
                   {...register('score')}
                 />
               ) : (
                 <input
                   type="number"
-                  placeholder={`Enter your GPA ${scale === 'cn_percent' ? '(0-100)' : scale === 'cn_5scale' ? '(0-5)' : scale === 'uk_7scale' ? '(0-7)' : '(0-4)'}`}
+                  placeholder={`Enter your GPA ${scale === 'cn_percent' ? '(0-100)' : scale === 'cn_5scale' ? '(0-5)' : scale === 'uk_7scale' ? '(0-7)' : scale === 'au_4scale' ? '(0-4)' : scale === 'canada_4scale' ? '(0-4)' : scale === 'europe_ects' ? '(0-30)' : scale === 'korea_gpa' ? '(0-4.5)' : '(0-10)'}`}
                   step="0.1"
                   min="0"
-                  max={scale === 'cn_percent' ? 100 : scale === 'cn_5scale' ? 5 : scale === 'uk_7scale' ? 7 : 4}
+                  max={scale === 'cn_percent' ? 100 : scale === 'cn_5scale' ? 5 : scale === 'uk_7scale' ? 7 : scale === 'au_4scale' ? 4 : scale === 'canada_4scale' ? 4 : scale === 'europe_ects' ? 30 : scale === 'korea_gpa' ? 4.5 : 10}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-lg"
                   {...register('score')}
                 />
               )}
               <p className="text-sm text-gray-500">
-                Example: {scale === 'cn_percent' ? '85 (for 100-point scale)' : scale === 'cn_5scale' ? '4.2 (for 5-point scale)' : scale === 'uk_7scale' ? '6.5 (for UK 7-point scale)' : scale === 'au_4scale' ? '3.5 (for Australian 4-point scale)' : 'A- (for letter grade scale)'}
+                Example: {scale === 'cn_percent' ? '85 (for 100-point scale)' : scale === 'cn_5scale' ? '4.2 (for 5-point scale)' : scale === 'uk_7scale' ? '6.5 (for UK 7-point scale)' : scale === 'au_4scale' ? '3.5 (for Australian 4-point scale)' : scale === 'letter_grade' ? 'A- (for letter grade scale)' : scale === 'canada_4scale' ? '3.7 (for Canadian 4-point scale)' : scale === 'europe_ects' ? '27 (for European ECTS scale)' : scale === 'japan_gpa' ? 'A (for Japanese GPA scale)' : '8.5 (for Indian GPA scale)'}
               </p>
             </div>
 
@@ -250,9 +345,18 @@ export default function Home() {
                     <li>D → 1.0</li>
                     <li>F → 0.0</li>
                   </ul>
+                ) : scale === 'japan_gpa' ? (
+                  <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                    <li>S → 4.0</li>
+                    <li>A → 3.5</li>
+                    <li>B → 3.0</li>
+                    <li>C → 2.0</li>
+                    <li>D → 1.0</li>
+                    <li>F → 0.0</li>
+                  </ul>
                 ) : (
                   <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                    {conversionRules[scale as Exclude<GPAScale, 'letter_grade'>].map((rule, index) => (
+                    {conversionRules[scale as Exclude<GPAScale, 'letter_grade' | 'japan_gpa'>].map((rule, index) => (
                       <li key={index}>
                         {rule.min}-{rule.max} → {rule.gpa}
                       </li>
