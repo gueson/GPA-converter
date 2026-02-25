@@ -364,6 +364,25 @@ export default function Home() {
                   </ul>
                 )}
               </div>
+              <div className="mt-4">
+                <a 
+                  href={
+                    scale === 'cn_percent' ? '/scales/cn_percent' :
+                    scale === 'cn_5scale' ? '/scales/cn_5scale' :
+                    scale === 'uk_7scale' ? '/scales/uk' :
+                    scale === 'au_4scale' ? '/scales/australian' :
+                    scale === 'letter_grade' ? '/scales/letter' :
+                    scale === 'canada_4scale' ? '/scales/canadian' :
+                    scale === 'europe_ects' ? '/scales/european' :
+                    scale === 'japan_gpa' ? '/scales/japanese' :
+                    scale === 'korea_gpa' ? '/scales/korean' :
+                    '/scales/indian'
+                  } 
+                  className="text-accent hover:underline text-sm font-medium"
+                >
+                  了解更多关于{scale === 'cn_percent' ? '百分制' : scale === 'cn_5scale' ? '5分制' : scale === 'uk_7scale' ? '英国7分制' : scale === 'au_4scale' ? '澳洲4分制' : scale === 'letter_grade' ? '字母制' : scale === 'canada_4scale' ? '加拿大4分制' : scale === 'europe_ects' ? '欧洲ECTS' : scale === 'japan_gpa' ? '日本GPA' : scale === 'korea_gpa' ? '韩国GPA' : '印度GPA'}的转换规则 →
+                </a>
+              </div>
             </div>
           </div>
         </main>
