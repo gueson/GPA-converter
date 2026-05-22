@@ -156,6 +156,7 @@ export default function Home() {
   const [scale, setScale] = useState<GPAScale>('cn_percent')
   const [result, setResult] = useState<number>(0.0)
   const [copied, setCopied] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
   
   const { register, watch, reset } = useForm<FormInputs>({
     defaultValues: {
@@ -165,12 +166,70 @@ export default function Home() {
   
   const score = watch('score')
   
+  // Validate score based on scale
+  const validateScore = (value: string | undefined): boolean => {
+    if (!value) {
+      setError('')
+      return false
+    }
+    
+    if (scale === 'letter_grade' || scale === 'japan_gpa') {
+      // Letter grades validation
+      const validGrades = scale === 'japan_gpa' 
+        ? ['S', 'A', 'B', 'C', 'D', 'F']
+        : ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'F']
+      const normalizedGrade = value.toUpperCase().trim()
+      if (!validGrades.includes(normalizedGrade)) {
+        setError(`Please enter a valid letter grade (e.g., ${validGrades[0]})`)
+        return false
+      }
+    } else {
+      // Numeric validation
+      const numValue = parseFloat(value)
+      if (isNaN(numValue)) {
+        setError('Please enter a valid number')
+        return false
+      }
+      
+      const maxValue = scale === 'cn_percent' ? 100 : scale === 'cn_5scale' ? 5 : scale === 'uk_7scale' ? 7 : scale === 'au_4scale' ? 4 : scale === 'canada_4scale' ? 4 : scale === 'europe_ects' ? 30 : scale === 'korea_gpa' ? 4.5 : 10
+      
+      if (numValue < 0 || numValue > maxValue) {
+        setError(`Please enter a value between 0 and ${maxValue}`)
+        return false
+      }
+    }
+    
+    setError('')
+    return true
+  }
+  
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl/Cmd + C to copy result
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c' && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault()
+        if (result > 0) {
+          handleCopyResult()
+        }
+      }
+    }
+    
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [result])
+  
   // Calculate GPA when score or scale changes
   useEffect(() => {
     if (score) {
-      setResult(calculateGPA(score, scale))
+      if (validateScore(score)) {
+        setResult(calculateGPA(score, scale))
+      } else {
+        setResult(0.0)
+      }
     } else {
       setResult(0.0)
+      setError('')
     }
   }, [score, scale])
 
@@ -204,75 +263,95 @@ export default function Home() {
           <div className="space-y-6">
             {/* Scale Selector */}
             <div className="flex flex-col gap-3">
-              <label className="text-sm font-medium text-text">Scale:</label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+              <label className="text-sm font-medium text-text" id="scale-label">Scale:</label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2" role="group" aria-labelledby="scale-label">
                 <button
                   type="button"
                   onClick={() => handleScaleChange('cn_percent')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'cn_percent' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'cn_percent' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Chinese 100-point scale"
+                  aria-pressed={scale === 'cn_percent'}
                 >
                   百分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('cn_5scale')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'cn_5scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'cn_5scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Chinese 5-point scale"
+                  aria-pressed={scale === 'cn_5scale'}
                 >
                   5分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('uk_7scale')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'uk_7scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'uk_7scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="UK 7-point scale"
+                  aria-pressed={scale === 'uk_7scale'}
                 >
                   英国7分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('au_4scale')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'au_4scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'au_4scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Australian 4-point scale"
+                  aria-pressed={scale === 'au_4scale'}
                 >
                   澳洲4分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('letter_grade')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'letter_grade' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'letter_grade' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Letter grade scale"
+                  aria-pressed={scale === 'letter_grade'}
                 >
                   字母制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('canada_4scale')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'canada_4scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'canada_4scale' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Canadian 4-point scale"
+                  aria-pressed={scale === 'canada_4scale'}
                 >
                   加拿大4分制
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('europe_ects')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'europe_ects' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'europe_ects' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="European ECTS scale"
+                  aria-pressed={scale === 'europe_ects'}
                 >
                   欧洲ECTS
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('japan_gpa')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'japan_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'japan_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Japanese GPA scale"
+                  aria-pressed={scale === 'japan_gpa'}
                 >
                   日本GPA
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('korea_gpa')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'korea_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'korea_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Korean GPA scale"
+                  aria-pressed={scale === 'korea_gpa'}
                 >
                   韩国GPA
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScaleChange('india_gpa')}
-                  className={`py-3 px-2 font-medium transition-colors rounded-lg ${scale === 'india_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  className={`py-3 px-2 font-medium transition-colors rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2 ${scale === 'india_gpa' ? 'bg-primary' : 'bg-white border border-gray-300'}`}
+                  aria-label="Indian GPA scale"
+                  aria-pressed={scale === 'india_gpa'}
                 >
                   印度GPA
                 </button>
@@ -281,28 +360,43 @@ export default function Home() {
 
             {/* GPA Input */}
             <div className="flex flex-col gap-3">
-              <label className="text-sm font-medium text-text">Your GPA:</label>
+              <label htmlFor="score" className="text-sm font-medium text-text">Your GPA:</label>
               {(scale === 'letter_grade' || scale === 'japan_gpa') ? (
                 <input
+                  id="score"
                   type="text"
                   placeholder={scale === 'letter_grade' ? "Enter your letter grade (e.g., A+, B, C-)" : "Enter your letter grade (e.g., S, A, B)"}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-lg"
+                  className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 text-lg transition-all ${error ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
+                  aria-invalid={!!error}
+                  aria-describedby={error ? 'score-error' : 'score-help'}
                   {...register('score')}
                 />
               ) : (
                 <input
+                  id="score"
                   type="number"
                   placeholder={`Enter your GPA ${scale === 'cn_percent' ? '(0-100)' : scale === 'cn_5scale' ? '(0-5)' : scale === 'uk_7scale' ? '(0-7)' : scale === 'au_4scale' ? '(0-4)' : scale === 'canada_4scale' ? '(0-4)' : scale === 'europe_ects' ? '(0-30)' : scale === 'korea_gpa' ? '(0-4.5)' : '(0-10)'}`}
                   step="0.1"
                   min="0"
                   max={scale === 'cn_percent' ? 100 : scale === 'cn_5scale' ? 5 : scale === 'uk_7scale' ? 7 : scale === 'au_4scale' ? 4 : scale === 'canada_4scale' ? 4 : scale === 'europe_ects' ? 30 : scale === 'korea_gpa' ? 4.5 : 10}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-lg"
+                  className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 text-lg transition-all ${error ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
+                  aria-invalid={!!error}
+                  aria-describedby={error ? 'score-error' : 'score-help'}
                   {...register('score')}
                 />
               )}
-              <p className="text-sm text-gray-500">
-                Example: {scale === 'cn_percent' ? '85 (for 100-point scale)' : scale === 'cn_5scale' ? '4.2 (for 5-point scale)' : scale === 'uk_7scale' ? '6.5 (for UK 7-point scale)' : scale === 'au_4scale' ? '3.5 (for Australian 4-point scale)' : scale === 'letter_grade' ? 'A- (for letter grade scale)' : scale === 'canada_4scale' ? '3.7 (for Canadian 4-point scale)' : scale === 'europe_ects' ? '27 (for European ECTS scale)' : scale === 'japan_gpa' ? 'A (for Japanese GPA scale)' : '8.5 (for Indian GPA scale)'}
-              </p>
+              {error ? (
+                <p id="score-error" className="text-sm text-red-600 flex items-center gap-1" role="alert">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  {error}
+                </p>
+              ) : (
+                <p id="score-help" className="text-sm text-gray-600">
+                  Example: {scale === 'cn_percent' ? '85 (for 100-point scale)' : scale === 'cn_5scale' ? '4.2 (for 5-point scale)' : scale === 'uk_7scale' ? '6.5 (for UK 7-point scale)' : scale === 'au_4scale' ? '3.5 (for Australian 4-point scale)' : scale === 'letter_grade' ? 'A- (for letter grade scale)' : scale === 'canada_4scale' ? '3.7 (for Canadian 4-point scale)' : scale === 'europe_ects' ? '27 (for European ECTS scale)' : scale === 'japan_gpa' ? 'A (for Japanese GPA scale)' : '8.5 (for Indian GPA scale)'}
+                </p>
+              )}
             </div>
 
             {/* Result Display */}
@@ -312,16 +406,21 @@ export default function Home() {
                 <div className="text-4xl font-bold text-text">{result.toFixed(1)}</div>
                 <button
                   onClick={handleCopyResult}
-                  className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-colors ${copied ? 'bg-green-500 text-white' : 'bg-accent hover:bg-orange-500 text-white'}`}
+                  className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all focus:ring-2 focus:ring-offset-2 ${copied ? 'bg-green-500 text-white' : 'bg-accent hover:bg-orange-500 text-white'}`}
+                  aria-label={copied ? 'Result copied to clipboard' : 'Copy result to clipboard'}
                 >
                   {copied ? (
                     <>
-                      <i className="fas fa-check"></i>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                       Copied!
                     </>
                   ) : (
                     <>
-                      <i className="fas fa-copy"></i>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
                       Copy
                     </>
                   )}
